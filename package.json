@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm run start --prefix backend",
+    "client": "npm run start --prefix frontend"
   },
   "workspaces": [
     "backend",

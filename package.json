@@ -3,15 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "npm run start --prefix backend",
-    "client": "npm run start --prefix frontend"
+    "prod-build": "cd frontend && npm run build",
+    "prod-start": "npm run prod-build && concurrently \"npm run server\" \"npm run client\"",
+    "dev-server": "npm run dev --prefix backend",
+    "dev-client": "npm run dev --prefix frontend",
+    "dev-start": "concurrently \"npm run dev-server\" \"npm run dev-client\""
   },
   "workspaces": [
     "backend",
     "frontend"
   ],
   "dependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "ts-node": "^10.9.2"
   }
 }

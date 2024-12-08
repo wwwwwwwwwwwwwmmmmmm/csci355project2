@@ -181,7 +181,7 @@ nav#nav a:active {
 /* Hero Section Styling */
 .hero {
     height: 100vh; /* Full viewport height for hero section */
-    background: linear-gradient(rgba(0, 31, 63, 0.85), rgba(0, 31, 63, 0.85)), url('/SourceFiles/CS355 Project images/blue_themed_tech_background.png') no-repeat center center/cover; /* Gradient overlay with a background image */
+    background: linear-gradient(rgba(0, 31, 63, 0.85), rgba(0, 31, 63, 0.85)), url('/CS355 Project images/blue_themed_tech_background.png') no-repeat center center/cover; /* Gradient overlay with a background image */
     display: flex;
     flex-direction: column; /* Column layout for content */
     justify-content: center; /* Centers content vertically */

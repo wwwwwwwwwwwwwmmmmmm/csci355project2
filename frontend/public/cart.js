@@ -31,7 +31,7 @@ function renderCartItems() {
         cartItem.classList.add('cart-item'); // Add a class for styling
 
         // Construct the image path based on the item's name
-        const imagePath = `/SourceFiles/CS355 Project images/${item.name}.jpg`;
+        const imagePath = `/CS355 Project images/${item.name}.jpg`;
 
         // Set the inner HTML of the cart item, including the item's image, name, price, quantity controls, and a trash icon
         cartItem.innerHTML = `

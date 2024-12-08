@@ -10,8 +10,8 @@ console.log(`Port: ${port}`);
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 app.use(cors({origin: 'http://localhost:3000'})); // Allow React app
+
 // MongoDB Connection
 const mongoUri = process.env.MONGO_URI || '';
 console.log(`Mongo URI: ${mongoUri}`);

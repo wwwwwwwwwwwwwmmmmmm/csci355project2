@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^3.0.0",
+    "@stripe/stripe-js": "^5.2.0",
     "@vis.gl/react-google-maps": "^1.4.2",
+    "axios": "^1.7.9",
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

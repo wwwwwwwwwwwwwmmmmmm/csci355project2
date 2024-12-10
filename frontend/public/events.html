@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Events</title>
+    <link rel="stylesheet" href="events.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>EGGTech</h1>
+            </div>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact-us.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="events-container">
+        <section class="intro">
+            <h1>Explore Tech Events Near You</h1>
+            <p>Enter your ZIP code below to find exciting tech events happening in your area!</p>
+        </section>
+
+        <section class="search">
+            <input 
+                type="text" 
+                id="zipcode-input" 
+                placeholder="Enter ZIP code" 
+                maxlength="5" 
+                pattern="\d{5}" 
+                title="Please enter a valid 5-digit ZIP code"
+            />
+            <button id="search-events">Find Events</button>
+        </section>
+
+        <section id="results" class="results-container">
+            <!-- Event results will be dynamically inserted here -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <section>
+                <h2>ABOUT US</h2>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact-us.html">Contact Us</a></li>
+                </ul>
+            </section>
+            <section>
+                <h2>FOLLOW US</h2>
+                <div class="footer-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </section>
+        </div>
+        <p>&copy; 2024 EGGTech. All rights reserved.</p>
+    </footer>
+
+    <script src="events.js"></script>
+</body>
+</html>

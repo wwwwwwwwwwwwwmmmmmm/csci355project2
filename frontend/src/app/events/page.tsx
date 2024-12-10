@@ -4,7 +4,16 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Card, CardContent, Typography, Grid, Container } from '@mui/material';
 import Navbar from '../../components/Navbar';
 import './events.css';
-
+import { firestore } from '@/firebase'
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  deleteDoc,
+  getDoc,
+} from 'firebase/firestore'
 
 
 const EventsPage: React.FC = () => {

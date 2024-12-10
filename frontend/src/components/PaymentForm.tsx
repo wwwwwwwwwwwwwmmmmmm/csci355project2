@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import axios from 'axios';
 
@@ -8,8 +8,11 @@ interface Order {
 }
 
 export default function PaymentForm() {
-    let cart: Order[] = JSON.parse(localStorage.getItem('cart')) || [];
-    const amount = cart.reduce((total, item) => total + item.quantity * item.price, 0) * 100;
+    const [amount, setAmount] = useState(0);
+    useEffect(() => {
+        let cart: Order[] = JSON.parse(localStorage.getItem('cart')) || [];
+        setAmount(cart.reduce((total, item) => total + item.quantity * item.price, 0) * 100);
+    }, [amount])
     const [email, setEmail] = useState<string>('');
     const [name, setName] = useState<string>('');
     const [address, setAddress] = useState<string>('');
@@ -65,11 +68,11 @@ export default function PaymentForm() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Amount Display (Read-Only) */}
                     <div>
-                        <label htmlFor="amount" className="block text-gray-700">Amount ($)</label>
+                        <label htmlFor="amount" className="block text-gray-700">Amount</label>
                         <input
                             type="text"
                             id="amount"
-                            value={(amount / 100).toFixed(2)}  // Displaying the amount in dollars with 2 decimal places
+                            value={"$ " + (amount / 100).toFixed(2)}  // Displaying the amount in dollars with 2 decimal places
                             className="mt-2 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100 cursor-not-allowed"
                             readOnly
                         />

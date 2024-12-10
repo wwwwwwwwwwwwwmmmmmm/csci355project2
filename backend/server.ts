@@ -1,12 +1,9 @@
-import express, { Application, Request, Response } from "express";
+import express, {Application, Request, Response} from "express";
 import * as mongoose from "mongoose";
 import cors from "cors";
 import Stripe from "stripe";
 import axios from "axios";
 import dotenv from "dotenv";
-
-
-
 
 
 const app: Application = express();
@@ -35,7 +32,8 @@ console.log("MONGO_URI:", process.env.MONGO_URI);
 
 console.log("GOOGLE_API_KEY:", process.env.GOOGLE_API_KEY);
 //app.use(cors({ origin: "http://localhost:3005" })); // Allow React app
-
+console.log('STRIPE_PUBLIC_KEY', process.env.STRIPE_PUBLIC_KEY);
+console.log('STRIPE_SECRET_KEY', process.env.STRIPE_SECRET_KEY);
 
 
 

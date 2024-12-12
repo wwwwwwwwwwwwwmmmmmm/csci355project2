@@ -75,7 +75,7 @@ export default function Footer() {
             <div className={styles.footerBottom}>
                 <p>
                     © 2024 EGGTech. Created by Roni Mikhaylov, Esteban Mesa, Toufiq
-                    Hossian, Jin H Chen, Hannah Zahler
+                    Hossian, Jin H Chen, Hannah Zahler, William Mah
                 </p>
             </div>
         </footer>

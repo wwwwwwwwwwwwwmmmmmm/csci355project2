@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import './Navbar.css'; 
+import React, {useEffect} from 'react';
+import './Navbar.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Navbar = () => {
@@ -27,7 +27,7 @@ const Navbar = () => {
                 </div>
                 <nav>
                     <a href="home.html">Home</a>
-                    <a href="/events">Events</a>
+                    <a href="/events.html">Events</a>
                     <a href="sale.html">Sale</a>
                     <a href="contact-us.html">Contact Us</a> 
                     <a href="cart.html" className="cart">

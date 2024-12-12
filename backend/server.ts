@@ -10,8 +10,6 @@ const app: Application = express();
 const port = process.env.PORT || 5001;
 console.log(`Port: ${port}`);
 
-
-
 // Middleware
 
 app.use(
@@ -46,25 +44,25 @@ mongoose
   .catch((err) => console.error(`MongoDB connection error: ${err}`));
 
 // Stripe Payment
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-// // Route to create a payment intent
-// app.post("/create-payment-intent", async (req, res) => {
-//   try {
-//     const { amount } = req.body;
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+// Route to create a payment intent
+app.post("/create-payment-intent", async (req, res) => {
+  try {
+    const {amount} = req.body;
 
-//     const paymentIntent = await stripe.paymentIntents.create({
-//       amount: amount,
-//       currency: "usd",
-//     });
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "usd",
+    });
 
-//     res.send({
-//       clientSecret: paymentIntent.client_secret,
-//     });
-//   } catch (error) {
-//     console.error("Error creating payment intent", error);
-//     res.status(500).send({ error: error });
-//   }
-// });
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    console.error("Error creating payment intent", error);
+    res.status(500).send({error: error});
+  }
+});
 
 // Route to fetch events using Google API
 app.get("/api/events", async (req: Request, res: Response) => {

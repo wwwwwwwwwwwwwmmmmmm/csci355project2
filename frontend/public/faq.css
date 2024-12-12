@@ -14,6 +14,7 @@ body {
     overflow-x: hidden;
 }
 
+/* Navigation */
 nav {
     display: flex;
     justify-content: space-between;
@@ -23,12 +24,31 @@ nav {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     width: 100%;
     z-index: 1000;
-    position: fixed;
+    animation: slideDown 1.5s ease-in-out;
+    position: relative;
+    transition: background-color 0.5s ease;
+}
+
+nav:hover {
+    box-shadow: 0 0 30px rgba(255, 203, 5, 0.7);
 }
 
 nav .logo h1 {
     font-size: 2rem;
     color: #ffffff;
+    position: relative;
+    animation: fadeInText 2s ease;
+}
+
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 nav ul {
@@ -40,17 +60,49 @@ nav ul {
 nav ul li {
     margin-right: 30px;
     font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
 }
 
 nav ul li a {
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s ease;
+    position: relative;
+}
+
+nav ul li a::before {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    background-color: #ffcb05;
+    transition: width 0.4s ease, left 0.4s ease;
+}
+
+nav ul li a:hover::before {
+    width: 100%;
+    left: 0%;
 }
 
 nav ul li a:hover {
     color: #ffcb05;
+    text-shadow: 0 0 8px #ffcb05;
 }
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 
 header {
     text-align: center;

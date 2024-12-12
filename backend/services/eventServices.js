@@ -8,7 +8,7 @@ const createLocalEvent = async (eventData) => {
 
 // Retrieve User-saved Events
 const getUserSavedEvents = async (userId) => {
-    return await User.findById(userId).populate('savedEvents');
+    return User.findById(userId).populate('savedEvents');
 };
 
 // Save RSVP Data
@@ -19,7 +19,7 @@ const createRSVP = async (userId, eventId, status) => {
 
 // Delete Event
 const deleteEvent = async (eventId) => {
-    return await Event.findByIdAndDelete(eventId);
+    return Event.findByIdAndDelete(eventId);
 };
 
 module.exports = { createLocalEvent, getUserSavedEvents, createRSVP, deleteEvent };

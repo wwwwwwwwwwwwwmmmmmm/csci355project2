@@ -18,45 +18,95 @@ body {
     transition: background-color 0.3s ease; /* Smooth transition for background color changes */
 }
 
-/* Navigation Styles */
+/* Navigation */
 nav {
-    display: flex; /* Use flexbox layout for navigation */
-    justify-content: space-between; /* Space out items evenly in the navigation bar */
-    align-items: center; /* Center items vertically in the navigation bar */
-    background-color: #004aad; /* Set a dark blue background color for the navigation */
-    padding: 20px; /* Add padding inside the navigation bar */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect for depth */
-    position: fixed; /* Fix the navigation bar at the top of the page */
-    width: 100%; /* Make the navigation bar full width */
-    top: 0; /* Position the navigation bar at the top of the page */
-    z-index: 1000; /* Ensure the navigation bar is on top of other elements */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004aad;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    z-index: 1000;
+    animation: slideDown 1.5s ease-in-out;
+    position: relative;
+    transition: background-color 0.5s ease;
+}
+
+nav:hover {
+    box-shadow: 0 0 30px rgba(255, 203, 5, 0.7);
 }
 
 nav .logo h1 {
-    font-size: 2rem; /* Set the font size for the logo */
-    color: #ffffff; /* Set the logo text color to white */
+    font-size: 2rem;
+    color: #ffffff;
+    position: relative;
+    animation: fadeInText 2s ease;
+}
+
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 nav ul {
-    list-style: none; /* Remove default bullet points from the list */
-    display: flex; /* Use flexbox layout for the navigation links */
-    align-items: center; /* Center items vertically in the list */
+    list-style: none;
+    display: flex;
+    align-items: center;
 }
 
 nav ul li {
-    margin-right: 30px; /* Add spacing between list items */
-    font-size: 1.1rem; /* Set font size for list items */
+    margin-right: 30px;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
 }
 
 nav ul li a {
-    color: #ffffff; /* Set the link text color to white */
-    text-decoration: none; /* Remove underline from links */
-    transition: color 0.3s ease; /* Smooth transition for color changes on hover */
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+nav ul li a::before {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    background-color: #ffcb05;
+    transition: width 0.4s ease, left 0.4s ease;
+}
+
+nav ul li a:hover::before {
+    width: 100%;
+    left: 0%;
 }
 
 nav ul li a:hover {
-    color: #ffcb05; /* Change link color to yellow on hover */
+    color: #ffcb05;
+    text-shadow: 0 0 8px #ffcb05;
 }
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 
 /* Icon styles for mobile menu toggle */
 .icon {

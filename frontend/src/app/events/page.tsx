@@ -1,98 +1,116 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { TextField, Card, CardContent, Typography, Grid, Container } from '@mui/material';
-import Navbar from '../../components/Navbar';
-import './events.css';
-import { firestore } from '@/firebase'
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  deleteDoc,
-  getDoc,
-} from 'firebase/firestore'
+import {useState} from "react";
+import Footer from "../components/Footer";
+import styles from "./styles.module.css";
 
+interface Event {
+    name: string;
+    vicinity: string;
+    rating?: number;
+    user_ratings_total?: number;
+}
 
-const EventsPage: React.FC = () => {
-  const [events, setEvents] = useState<any[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+export default function Events() {
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-  const mockEvents = [
-    // mock events for page- delete when API is finished
-    { id: 1, name: 'Music Concert', category: 'Music', description: 'A live concert with top artists.' },
-    { id: 2, name: 'Art Exhibit', category: 'Art', description: 'Explore local and international artworks.' },
-    { id: 3, name: 'Food Festival', category: 'Food', description: 'Enjoy delicious food from various cuisines.' },
-    { id: 4, name: 'Technology Conference', category: 'Tech', description: 'A conference for the latest tech innovations.' },
-  ];
+    const handleSearch = async (zipcode: string) => {
+        setLoading(true);
+        setError(null);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      // Simulate an API call with mock data- add in API when finished
-      const filteredEvents = mockEvents.filter(event => 
-        event.name.toLowerCase().includes(searchQuery.toLowerCase())
+        try {
+            const response = await fetch(
+                `http://localhost:5001/api/events?zipcode=${zipcode}`
       );
-      setEvents(filteredEvents);
+            if (!response.ok) {
+                throw new Error("Failed to fetch events. Please try again later.");
+            }
+            const data = await response.json();
+            setEvents(data.results || []);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "An error occurred");
+        } finally {
+            setLoading(false);
+        }
     };
 
-    fetchEvents();
-  }, [searchQuery]);
+    const validateAndSearch = (zipcode: string) => {
+        if (/^\d{5}$/.test(zipcode)) {
+            handleSearch(zipcode);
+        } else {
+            alert("Please enter a valid 5-digit ZIP code.");
+        }
+    };
 
   return (
-    
-    <Container>
-        <div>
-            <Navbar /> 
-            <h1>Events</h1>
-            <p>Welcome to the events page!</p>
-        </div>
+      <>
+          <header className={styles.header}>
+              <h1>Explore Tech Events Near You</h1>
+              <p>
+                  Enter your ZIP code below to find exciting tech events happening in
+                  your area!
+              </p>
+          </header>
 
-      <TextField
-        label="Search Events"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className = "search-box"
-        sx={{
-          '& .MuiInputLabel-root': {
-            color: 'white', 
-          },
-          '& .MuiOutlinedInput-root': {
-            borderRadius: '4px', 
-            '& fieldset': {
-              borderColor: '#007bff', 
-            },
-            '&:hover fieldset': {
-              borderColor: '#0056b3', 
-            },
-          },
-          '& .MuiOutlinedInput-input': {
-            color: '#333', 
-          },
-        }}
-      />
+          <main className={styles.eventsContainer}>
+              <section className={styles.zipcodeSection}>
+                  <input
+                      type="text"
+                      className={styles.searchInput}
+                      placeholder="Enter ZIP code"
+                      maxLength={5}
+                      pattern="\d{5}"
+                      title="Please enter a valid 5-digit ZIP code"
+                      onKeyPress={(e) => {
+                          if (e.key === "Enter") {
+                              const input = e.currentTarget as HTMLInputElement;
+                              validateAndSearch(input.value);
+                          }
+                      }}
+                  />
+                  <button
+                      className={styles.searchButton}
+                      onClick={(e) => {
+                          const input = e.currentTarget
+                              .previousElementSibling as HTMLInputElement;
+                          validateAndSearch(input.value);
+                      }}
+                  >
+                      Find Events
+                  </button>
+              </section>
 
-      <Grid container spacing={3}>
-        {events.map((event) => (
-          <Grid item xs={12} sm={6} md={4} key={event.id}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5">{event.name}</Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  Category: {event.category}
-                </Typography>
-                <Typography variant="body2">{event.description}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+              <section id="results" className={styles.resultsContainer}>
+                  {loading && <p className={styles.message}>Loading events...</p>}
+                  {error && (
+                      <p className={`${styles.message} ${styles.error}`}>{error}</p>
+                  )}
+                  {!loading && !error && events.length === 0 && (
+                      <p className={styles.message}>
+                          No events found. Try searching with a ZIP code.
+                      </p>
+                  )}
+                  {!loading && !error && events.length > 0 && (
+                      <div className={styles.eventGrid}>
+                          {events.map((event, index) => (
+                              <div key={index} className={styles.eventCard}>
+                                  <h2>{event.name || "Unnamed Event"}</h2>
+                                  <p>Location: {event.vicinity || "Unknown"}</p>
+                                  {event.rating && (
+                                      <p>
+                                          Rating: {event.rating} ({event.user_ratings_total || 0}{" "}
+                                          reviews)
+                                      </p>
+                                  )}
+                              </div>
+                          ))}
+                      </div>
+                  )}
+              </section>
+          </main>
+          <Footer/>
+      </>
   );
-};
-
-export default EventsPage;
+}

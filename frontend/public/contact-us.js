@@ -21,6 +21,44 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Handle form submission
+    const form = document.getElementById('contact-form');
+    
+    // Function to handle the form submission
+    function handleFormSubmit(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Gather form data
+        const formData = new FormData(form);
+        const data = new URLSearchParams();
+        formData.forEach((value, key) => {
+            data.append(key, value);
+        });
+
+        // Send the data to the backend using fetch API
+        fetch('send_email.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Handle response from the server
+            if (data === 'Message sent successfully!') {
+                alert('Thank you for reaching out! We will get back to you shortly.');
+                form.reset(); // Reset form after successful submission
+            } else {
+                alert('There was an issue sending your message. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error sending your message. Please try again.');
+        });
+    }
+
+    // Attach the form submission handler
+    form.addEventListener('submit', handleFormSubmit);
+
     // New Location Panel Functionality
     panels.forEach(panel => {
         panel.addEventListener('click', () => {

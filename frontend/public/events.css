@@ -123,7 +123,26 @@ main {
     transform: scale(1.05);
 }
 
+#search-events {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+#zipcode-input {
+    height: 30px;
+    padding: 5px;
+}
+
+.intro {
+    margin-bottom: 20px;
+}
+
 /* Events Grid */
+.results-container {
+    margin-top: 20px;
+}
+
 .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -134,31 +153,94 @@ main {
 
 /* Individual Event Card */
 .event-card {
+    display: flex;
+    flex-direction: row;
     background: #ffffff;
     border: 2px solid #ddd;
     border-radius: 10px;
     padding: 20px;
     width: 100%;
-    max-width: 400px;
+    max-width: 100%;
     text-align: left;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+/* Left Section: Event Details */
+.event-details {
+    flex: 1;
+    padding-right: 20px;
 }
 
-.event-card h2 {
-    font-size: 1.5rem;
-    color: #1e90ff;
-    margin-bottom: 10px;
+/* Right Section: RSVP and Map */
+.rsvp-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 }
 
-.event-card p {
-    margin: 10px 0;
-    color: #555;
+/* Button Styles */
+.rsvp-button, .map-button, .submit-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #1e90ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.rsvp-button:hover, .map-button:hover, .submit-button:hover {
+    background-color: #ffcb05;
+}
+
+/* RSVP Input Box */
+.rsvp-input {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.view-map-link {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #1e90ff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.view-map-link:hover {
+    background-color: #ffcb05;
+}
+
+/* For the map section */
+.map-container {
+    margin-top: 20px;
+    display: none; /* Initially hide the map */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .event-card {
+        flex-direction: column;
+    }
+
+    .event-details, .rsvp-container {
+        width: 100%;
+        padding: 10px;
+    }
 }
 
 /* Footer Section */

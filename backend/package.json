@@ -8,11 +8,13 @@
   "dependencies": {
     "@types/cors": "^2.8.17",
     "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongodb": "^6.11.0",
     "mongoose": "^8.8.4",
+    "nodemailer": "^6.9.16",
     "stripe": "^17.4.0"
   },
   "devDependencies": {
@@ -20,5 +22,12 @@
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
-  }
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

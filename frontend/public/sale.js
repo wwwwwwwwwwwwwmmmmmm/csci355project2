@@ -6,6 +6,42 @@ function updateCartCount() {
     document.getElementById('cart-count').textContent = cartCount;
 }
 
+// Function to sort products
+function sortProducts() {
+    const sortOption = document.getElementById('sort').value;
+    const productCards = Array.from(document.querySelectorAll('.product-card'));
+
+    let sortedCards;
+
+    if (sortOption === 'low-to-high') {
+        sortedCards = productCards.sort((a, b) => {
+            const priceA = parseFloat(a.querySelector('.price').textContent.replace('$', '').replace(',', ''));
+            const priceB = parseFloat(b.querySelector('.price').textContent.replace('$', '').replace(',', ''));
+            return priceA - priceB;
+        });
+    } else if (sortOption === 'high-to-low') {
+        sortedCards = productCards.sort((a, b) => {
+            const priceA = parseFloat(a.querySelector('.price').textContent.replace('$', '').replace(',', ''));
+            const priceB = parseFloat(b.querySelector('.price').textContent.replace('$', '').replace(',', ''));
+            return priceB - priceA;
+        });
+    } else {
+        // Default is 'relevant', no sorting needed, just return original order
+        sortedCards = productCards;
+    }
+
+    // Reattach sorted product cards to the grid
+    const productGrid = document.querySelector('.product-grid');
+    sortedCards.forEach(card => productGrid.appendChild(card));
+}
+
+// Event listener for sorting dropdown
+document.getElementById('sort').addEventListener('change', sortProducts);
+
+// Run the sorting function on page load (if you want a default sorting when the page is first loaded)
+window.onload = sortProducts;
+
+
 // Function to add products to cart
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
@@ -32,6 +68,11 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
         updateCartCount();
     });
 });
+
+
+
+
+
 
 // Quantity increase and decrease functionality
 document.querySelectorAll('.quantity-controls').forEach(control => {

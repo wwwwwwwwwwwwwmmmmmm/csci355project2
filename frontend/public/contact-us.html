@@ -17,7 +17,7 @@
         </div>
         <nav>
             <a href="home.html">Home</a>
-            <a href="/events">Events</a>
+            <a href="/events.html">Events</a>
             <a href="sale.html">Sale</a>
             <a href="contact-us.html" class="active">Contact Us</a>
             <a href="cart.html" class="cart">
@@ -36,11 +36,11 @@
     </div>
 </section>
 
-<!-- Contact Form Section -->
 <main class="contact-container">
     <div class="contact-form-section">
         <h1 class="contact-title">Get in Touch</h1>
-        <form action="send_email.php" method="POST" class="contact-form">
+        <!-- Updated form with onsubmit attribute -->
+        <form action="send_email.php" method="POST" class="contact-form" id="contact-form" onsubmit="return handleFormSubmit(event)">
             <div class="form-group">
                 <label for="firstName">First Name</label>
                 <input type="text" id="firstName" name="firstName" required>
@@ -60,6 +60,8 @@
             <button type="submit" class="submit-btn">Send Message</button>
         </form>
     </div>
+</main>
+
 
     <!-- Interactive Locations Section -->
     <div class="locations-container">
@@ -97,5 +99,6 @@
 </footer>
 
 <script src="contact-us.js"></script>
+
 </body>
 </html>

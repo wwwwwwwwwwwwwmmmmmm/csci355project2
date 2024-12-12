@@ -305,6 +305,23 @@ h3 {
     user-select: none;
 }
 
+/* Sort Section */
+.sort-section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 1rem;
+}
+
+.sort-section select {
+    padding: 10px;
+    font-size: 1rem;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 .ratings-container {
     display: flex;
     margin: 20px 0;
@@ -379,3 +396,4 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+

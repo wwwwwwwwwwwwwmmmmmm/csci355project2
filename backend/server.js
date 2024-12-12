@@ -1,44 +1,52 @@
 const express = require('express');
-const connectDB = require('./config/dbConnection');
-const { createRSVP } = require('./services/eventServices');
-const { Event } = require('./models/eventModel');
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
+require('dotenv').config();  // Load environment variables
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
-// Connect to MongoDB
-connectDB();
+// Middleware to parse incoming JSON requests
+app.use(bodyParser.json());
 
-// Middleware
-app.use(express.json());
+// Create a transporter using Gmail's SMTP server
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'bd017610@gmail.com',  // Your Gmail address
+    pass: process.env.GMAIL_APP_PASSWORD, // Gmail App Password (stored in .env)
+  },
+});
 
 // Test Route
 app.get('/', (req, res) => {
-    res.send('API is running...');
+  res.send('API is running...');
 });
 
-// Endpoint to Fetch Events
-app.get('/api/events', async (req, res) => {
-    try {
-        const events = await Event.find();
-        res.json(events);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch events' });
-    }
-});
-
-// Endpoint for RSVPs
+// RSVP Route (Handles POST requests to /api/rsvp)
 app.post('/api/rsvp', async (req, res) => {
-    const { userId, eventId, status } = req.body;
-    try {
-        const rsvp = await createRSVP(userId, eventId, status);
-        res.status(201).json(rsvp);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to RSVP' });
-    }
+  const { email, eventName } = req.body;  // We only expect email and eventName
+
+  try {
+    // Nodemailer email sending logic
+    const mailOptions = {
+      from: 'ronimikhaylov02@gmail.com',
+      to: email,  // Recipient's email
+      subject: `RSVP Confirmation for ${eventName}`,  // Email Subject
+      text: `Thank you for RSVPing for the event: ${eventName}. We look forward to seeing you there!`,
+      html: `<p>Thank you for RSVPing for the event: <strong>${eventName}</strong>. We look forward to seeing you there!</p>`,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'RSVP email sent!' });  // Email sent successfully
+  } catch (err) {
+    console.error('Error occurred:', err);
+    res.status(500).json({ error: 'Failed to send RSVP email.' });  // Error handling
+  }
 });
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
